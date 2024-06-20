@@ -17,7 +17,8 @@ router.post('/', async (req, res) => {
         id_idoso: z.number().int(),
         id_enfermeiro: z.number().int(),
         id_vacina: z.number().int(),
-        data: z.string().date()
+        data: z.string().date(),
+        observacoes: z.string().optional().nullable()
     })
 
     const objSalvar = registerBodySchema.parse(req.body)
@@ -31,7 +32,8 @@ router.put('/:id', async (req, res) => {
         id_idoso: z.number().int().optional(),
         id_enfermeiro: z.number().int().optional(),
         id_vacina: z.number().int().optional(),
-        data: z.string().date().optional()
+        data: z.string().date().optional(),
+        observacoes: z.string().optional().nullable()
     })
 
     const objSalvar = registerBodySchema.parse(req.body)
