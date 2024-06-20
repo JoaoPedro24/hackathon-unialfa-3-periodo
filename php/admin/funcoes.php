@@ -1,7 +1,5 @@
 <?php
-    //função para mostrar a janela de erro
-    function mensagemErro($msg) {
-        ?>
+    function mensagemErro($msg) { ?>
         <script>
             Swal.fire({
             icon: 'error',
@@ -13,4 +11,4 @@
         </script>
         <?php
         exit;
-    } //fim da função
+    }
