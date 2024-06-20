@@ -16,7 +16,7 @@ exports.up = function (knex) {
             table.string("rua", 255).notNullable();
             table.string("bairro", 255).notNullable();
             table.integer("numero").notNullable();
-            table.string("complemento", 255).notNullable();
+            table.string("complemento", 255).nullable();
             table.string("uf", 255).notNullable();
             table.string("cidade", 255).notNullable();
             table.timestamp("created_at").defaultTo(knex.fn.now());
