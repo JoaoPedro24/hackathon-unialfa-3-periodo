@@ -29,7 +29,6 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     
-
     <!-- Outros Javascript -->
     <script src="js/parsley.min.js"></script>
     
@@ -58,38 +57,28 @@
 
 </head>
 <body id="page-top">
-<?php
+    <?php
         require "funcoes.php";
 
-        // $usuarioNaoExiste = !isset($_SESSION['usuario']);
-        // if($usuarioNaoExiste){
-        //     require "paginas/login.php";
-        // } else {
-            if (isset($_GET['param'])) {
-                // 'paginas/home/1'
-                // paginas = Pasta/diretorio
-                // home = O arquivo php
+        if (isset($_GET['param'])) {
+            $page = explode("/", $_GET['param']);
+            
+            $dir = $page[0] ?? null;
+            $arquivo = $page[1] ?? null;
+            $id = $page[2] ?? null;
 
-                //$array['paginas', 'home', '2']
+            $page = "$dir/$arquivo";
 
-                $page = explode("/", $_GET['param']);
-                
-                $pasta = $page[0] ?? NULL;
-                $arquivo = $page[1] ?? NULL;
-                $id = $page[2] ?? NULL;
+            require "header.php";
 
-                $page = "$pasta/$arquivo";
-
-                require "header.php";
-
-                if (file_exists("$page.php")){
-                    require "$page.php";
-                }else {
-                    require "paginas/erro.php";
-                }
-                require "footer.php";
+            if (file_exists("$page.php")){
+                require "$page.php";
+            }else {
+                require "paginas/erro.php";
             }
-        // }
+
+            require "footer.php";
+        }
     ?>
 </body>
 </html>
