@@ -17,7 +17,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h2 class="float-left">Cadastros de idoso</h2>
+        <h2 class="float-left">Cadastros de idosos</h2>
     </div>
     <div class="card-body">
         <form method="POST" action="salvar/pacientes">

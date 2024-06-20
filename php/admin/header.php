@@ -3,12 +3,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #11114e" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 	
-                <img src="images/logo.png" alt="Vitrine">
+                <img src="images/logo.png" class="w-100" alt="Vitrine">
 
             </a>
 
@@ -35,18 +35,14 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="cadastros/categorias"><i class="fas fa-tags"></i> Categorias</a>
-                        <a class="collapse-item" href="cadastros/produtos"><i class="fas fa-gift"></i> Produtos</a>
+                        <a class="collapse-item" href="cadastros/idosos"><i class="fas fa-user-friends"></i> Idosos</a>
+                        <a class="collapse-item" href="cadastros/responsaveis"><i class="fas fa-user"></i> Responsaveis</a>
 
-                        <a class="collapse-item" href="cadastros/tipos">
-                            <i class="fas fa-users"></i>
-                            Tipo de Usuário
+                        <a class="collapse-item" href="cadastros/agendamentos">
+                        <i class="fas fa-stethoscope"></i>
+                            Agendamento
                         </a>
 
-                        <a class="collapse-item" href="cadastros/usuarios">
-                            <i class="fas fa-user-plus"></i>
-                            Usuário
-                        </a>
                     </div>
                 </div>
             </li>
