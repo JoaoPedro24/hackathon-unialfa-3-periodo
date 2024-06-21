@@ -1,7 +1,9 @@
 <?php
-     require "../config.php";
-     session_start();
-     date_default_timezone_set('America/Sao_Paulo');
+    require "../config.php";
+    session_start();
+    date_default_timezone_set('America/Sao_Paulo');
+
+    $id_idoso = $_POST["id_idoso"] ?? null;
 ?>
 
 <!DOCTYPE html>
@@ -69,15 +71,19 @@
 
             $page = "$dir/$arquivo";
 
-            require "header.php";
-
-            if (file_exists("$page.php")){
-                require "$page.php";
-            }else {
-                require "paginas/erro.php";
+            if (!str_contains($page, "entrar")) {
+                require "header.php";
+    
+                if (file_exists("$page.php")){
+                    require "$page.php";
+                }else {
+                    require "paginas/erro.php";
+                }
+    
+                require "footer.php";
+            } else {
+                require "$page.php"; 
             }
-
-            require "footer.php";
         }
     ?>
 </body>
