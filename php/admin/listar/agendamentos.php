@@ -1,4 +1,10 @@
 <div class="card">
+    <div class="card-header">
+        <h2>Agendamentos</h2>
+        <a href="./cadastros/agendamentos">
+            <i class="fas fa-plus"></i> Novo agendamento
+        </a>
+    </div>
     <div class="card-body">
         <table class="table table-bordered table-hover table-striped">
             <thead>

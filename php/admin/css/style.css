@@ -32,3 +32,18 @@ iframe {
 .selecione-codigo img {
 	width: 60%;
 }
+
+.card-header {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.card-header a {
+	background-color: #11114e;
+	color: #FFFFFF;
+	padding: 8px;
+	border-radius: 10px;
+	font-weight: 700;
+}
