@@ -11,6 +11,13 @@ router.get('/', async (req, res) => {
     res.json({ idosos })
 })
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params
+    const idoso = await knex('idosos').where({ id }).first()
+
+    res.json({ idoso })
+})
+
 router.post('/', async (req, res) => {
     const registerBodySchema = z.object({
         id_responsavel: z.number().int(),
