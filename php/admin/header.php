@@ -4,6 +4,8 @@
             <img src="images/logo.png" class="w-100" alt="Vitrine">
         </a>
 
+        <?php if($_SESSION["id_idoso"] == "admin13608"){  ?>
+
         <hr class="sidebar-divider my-0">
 
         <li class="nav-item">
@@ -27,7 +29,7 @@
                 </div>
             </div>
         </li>
-
+        <?php } ?>
         <hr class="sidebar-divider my-0">
 
         <li class="nav-item active">
