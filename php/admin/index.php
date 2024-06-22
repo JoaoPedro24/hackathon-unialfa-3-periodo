@@ -2,6 +2,7 @@
     require "../config.php";
     session_start();
     date_default_timezone_set('America/Sao_Paulo');
+    $base_api_url = "http://localhost:3001/";
 
     $id_idoso = $_POST["id_idoso"] ?? null;
 ?>

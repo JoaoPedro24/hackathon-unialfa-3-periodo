@@ -5,10 +5,10 @@ module.exports = {
         client: "mysql",
         connection: {
             host: "localhost",
-            user: "root",
-            password: "",
+            user: "pedro",
+            password: "password",
             port: 3306,
-            database: "hackathon_3_periodo",
+            database: "hackathon_3_periodo"
         },
         migrations: {
             directory: path.resolve(

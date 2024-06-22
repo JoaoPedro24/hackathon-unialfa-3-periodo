@@ -7,9 +7,24 @@ const router = Router()
 
 router.get('/:id_idoso', async (req, res) => {
     const { id_idoso } = req.params
-    const agendamentos = await knex('agendamentos').where("id_idoso", id_idoso)
+    const agendamentos = await knex('agendamentos as a')
+    .join('idosos as i', 'i.id', 'a.id_idoso')
+    .join('enfermeiros as e', 'e.id', 'a.id_enfermeiro')
+    .join('vacinas as v', 'v.id', 'a.id_vacina')
+    .select('a.data', 'a.observacoes', 'i.nome as idoso', 'v.nome as vacina', 'e.nome as enfermeiro')
+    .where("id_idoso", id_idoso)
 
     res.json({ agendamentos })
+})
+
+router.get('/enfermeiro/:id_enfermeiro', async (req, res) => {
+    const { id_enfermeiro } = req.params
+    const { data } = req.query
+    const agendamento = await knex('agendamentos')
+    .where("id_enfermeiro", id_enfermeiro)
+    .where("data", data)
+
+    res.json({ agendamento })
 })
 
 router.post('/', async (req, res) => {

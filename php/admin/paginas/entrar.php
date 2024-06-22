@@ -20,7 +20,6 @@
         }
 
         mensagemErro('Nenhum idoso encontrado com esse código!');
-        echo "<script>location.href='paginas/entrar'</script>";
     }
 ?>
 
