@@ -1,13 +1,13 @@
 package trabalho.mains;
 
-import trabalho.view.CadastroVacinasForm;
+import trabalho.Inicio.TelaHistoricos;
 
 import javax.swing.*;
 
-public class MainVacinas {
+public class MainTelaHistorico {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            var form = new CadastroVacinasForm();
+            var form = new TelaHistoricos();
             form.setVisible(true);
         });
     }
