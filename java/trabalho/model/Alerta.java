@@ -1,41 +1,59 @@
 package trabalho.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Alerta {
-    private String nome;
+    private String nomeIdoso;
     private String cpf;
     private String telefone;
-    private Date data;
-    private String vacina;
+    private LocalDate data;
+    private String nomeVacina;
 
-    public Alerta(String nome, String cpf, String telefone, Date data, String vacina) {
-        this.nome = nome;
+    public Alerta(String nomeIdoso, String cpf, String telefone, LocalDate data, String nomeVacina) {
+        this.nomeIdoso = nomeIdoso;
         this.cpf = cpf;
         this.telefone = telefone;
         this.data = data;
-        this.vacina = vacina;
+        this.nomeVacina = nomeVacina;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeIdoso() {
+        return nomeIdoso;
+    }
+
+    public void setNomeIdoso(String nomeIdoso) {
+        this.nomeIdoso = nomeIdoso;
     }
 
     public String getCpf() {
         return cpf;
     }
 
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
     public String getTelefone() {
         return telefone;
     }
 
-    public Date getData() {
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public LocalDate getData() {
         return data;
     }
 
-    public String getVacina() {
-        return vacina;
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+
+    public String getNomeVacina() {
+        return nomeVacina;
+    }
+
+    public void setNomeVacina(String nomeVacina) {
+        this.nomeVacina = nomeVacina;
     }
 }
-

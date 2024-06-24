@@ -14,7 +14,7 @@ public class CadastroVacina {
         this.idade_minima = idade_minima;
     }
 
-    public CadastroVacina( String nome, Integer prazo, Integer idade_minima) {
+    public CadastroVacina(String nome, Integer prazo, Integer idade_minima) {
 
         this.nome = nome;
         this.prazo = prazo;
