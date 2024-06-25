@@ -11,6 +11,7 @@
     <div class="card-body">
         <form method="POST" action="salvar/agendamento_vacina">
             <input type="hidden" name="editar" value="sim">
+            <input type="hidden" name="id_agendamento" value="<?=$agendamento["id"]?>">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-12">
                     <label for="nome">Idoso</label>
@@ -44,7 +45,7 @@
 
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     <label for="observacoes">Observações</label>
-                    <textarea name="observacoes" id="observacoes" class="form-control" style="resize: none;"></textarea>
+                    <textarea name="observacoes" id="observacoes" class="form-control" style="resize: none;"><?=$agendamento["observacoes"]?></textarea>
                 </div>
 
             </div>

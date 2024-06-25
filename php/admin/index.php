@@ -105,6 +105,15 @@
                 confirmButtonText: 'Confirmar'
             })
         })
+
+        $('.btn-acessibilidade').click(function (e) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Acessibilidade',
+                text: 'Implementação futura',
+                confirmButtonText: 'Confirmar'
+            })
+        })
     </script>
 </body>
 </html>
