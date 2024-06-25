@@ -2,18 +2,11 @@
     $id_idoso = $_POST["id_idoso"] ?? null;
 
     if (isset($id_idoso)) {
-        if($id_idoso == "admin13608"){
-            $_SESSION["admin"] = $id_idoso;
-            echo "<script>location.href='listar/idosos'</script>";
-        }
-
         $_SESSION["id_idoso"] = $id_idoso;
 
-        $sql = "select * from idosos where id = :id_idoso";
-        $consulta = $pdo->prepare($sql);
-        $consulta->bindParam(':id_idoso', $_SESSION["id_idoso"]);
-        $consulta->execute();
-        $idoso = $consulta->fetch(PDO::FETCH_OBJ);
+        $json = file_get_contents("http://localhost:3001/idosos/$id_idoso");
+        $idoso = json_decode($json, true);
+        $idoso = $idoso["idoso"] ?? null;
 
         if ($idoso) {
             echo "<script>location.href='listar/agendamentos'</script>";

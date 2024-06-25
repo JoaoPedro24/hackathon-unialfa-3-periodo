@@ -1,35 +1,9 @@
 <div id="wrapper">
     <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #11114e; position: relative;" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="paginas/inicial.php">
-            <img src="images/logo.png" class="w-100" alt="Vitrine">
+            <img src="images/logo.png" class="w-100" alt="Logo SAV">
         </a>
 
-        <?php if($_SESSION["id_idoso"] == "admin13608"){  ?>
-
-        <hr class="sidebar-divider my-0">
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-tools"></i>
-                <span>Admin</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="cadastros/idosos">
-                        <i class="fas fa-user-friends"></i> Idosos
-                    </a>
-                    <a class="collapse-item" href="cadastros/responsaveis">
-                        <i class="fas fa-user"></i> Responsaveis
-                    </a>
-                    <a class="collapse-item" href="cadastros/agendamentos">
-                    <i class="fas fa-stethoscope"></i>
-                        Agendamento
-                    </a>
-                </div>
-            </div>
-        </li>
-        <?php } ?>
         <hr class="sidebar-divider my-0">
 
         <li class="nav-item active">
@@ -65,13 +39,12 @@
                 <i class="fas fa-fw fa-power-off" style="color: #ff6961"></i> Sair
             </a>
         </li>
+        <div>
+            <a class="btn btn-acessibilidade" style="background-color:white; position: absolute; top: 70%; right: 0; margin-right: -32px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius: 25px">
+                <i class="fas fa-universal-access fa-lg" style="color: green; font-size: 40px"></i>
+            </a>
+        </div>
     </ul>
-
-    <div>
-        <a class="btn" style="background-color:white; position: absolute; top: 70%; box-shadow: 5px 1px 3px 1px gray; border-radius: 25px">
-            <i class="fas fa-universal-access fa-lg" style="color: green; font-size: 40px"></i>
-        </a>
-    </div>
 
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content" style="margin-top: 24px;">
