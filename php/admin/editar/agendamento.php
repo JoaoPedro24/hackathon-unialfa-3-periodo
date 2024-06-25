@@ -60,7 +60,5 @@
             </div>
         </form>
     </div>
-
     <p style="margin: 0 0 8px 0; text-align: center; font-size: 18px">Para qualquer alteração em algum dos agendamentos entrar em contato com a secretaria</p>
-
 </div>
