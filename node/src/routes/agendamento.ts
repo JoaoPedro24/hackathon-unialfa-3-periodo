@@ -5,13 +5,36 @@ import { z } from 'zod'
 
 const router = Router()
 
+router.get('/ag/:id', async (req, res) => {
+    const { id } = req.params
+    const agendamento = await knex('agendamentos as a')
+    .join('idosos as i', 'i.id', 'a.id_idoso')
+    .join('enfermeiros as e', 'e.id', 'a.id_enfermeiro')
+    .join('vacinas as v', 'v.id', 'a.id_vacina')
+    .select('a.id', 'a.data', 'a.observacoes', 'i.id as id_idoso', 'i.nome as idoso', 'v.id as id_vacina', 'v.nome as vacina', 'e.id as id_enfermeiro', 'e.nome as enfermeiro')
+    .where("a.id", id)
+    .first()
+
+    res.json({ agendamento })
+})
+
 router.get('/:id_idoso', async (req, res) => {
     const { id_idoso } = req.params
+    const { dataInicio, dataFinal } = req.query
+
+    if (dataInicio && dataFinal) {
+        const agendamentos = await knex('agendamentos')
+        .where("id_idoso", id_idoso)
+        .whereBetween('data', [dataInicio, dataFinal])
+
+        res.json({ agendamentos })
+    }
+
     const agendamentos = await knex('agendamentos as a')
     .join('idosos as i', 'i.id', 'a.id_idoso')
     .join('enfermeiros as e', 'e.id', 'a.id_enfermeiro')
     .join('vacinas as v', 'v.id', 'a.id_vacina')
-    .select('a.data', 'a.observacoes', 'i.nome as idoso', 'v.nome as vacina', 'e.nome as enfermeiro')
+    .select('a.id', 'a.data', 'a.observacoes', 'i.nome as idoso', 'v.nome as vacina', 'e.nome as enfermeiro')
     .where("id_idoso", id_idoso)
 
     res.json({ agendamentos })

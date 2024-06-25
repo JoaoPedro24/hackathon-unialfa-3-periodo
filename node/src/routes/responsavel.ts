@@ -11,6 +11,13 @@ router.get('/', async (req, res) => {
     res.json({ responsaveis })
 })
 
+router.get('/:id', async (req, res) => {
+    const { id } = req.params
+    const responsavel = await knex('responsaveis').where({ id }).first()
+
+    res.json({ responsavel })
+})
+
 router.post('/', async (req, res) => {
     const registerBodySchema = z.object({
         nome: z.string(),

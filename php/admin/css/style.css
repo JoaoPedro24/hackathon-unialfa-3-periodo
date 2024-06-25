@@ -51,3 +51,47 @@ iframe {
 .form-buttons {
 	float: right;
 }
+
+.nav-item a,
+.nav-item a i {
+	font-weight: 700;
+}
+
+.edit-button,
+.delete-button {
+	margin-right: 8px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+	cursor: pointer;
+	opacity: .7;
+}
+
+.register-button {
+	color: #4e73df;
+}
+
+.register-button:hover {
+	cursor: pointer;
+}
+
+.card-header h2 {
+	font-weight: 700;
+}
+
+.toast {
+    opacity: .9 !important;
+}
+
+#toast-container > .toast {
+	width: 700px !important; 
+  }
+
+.toast-title {
+	font-size: 18px;
+}
+
+.toast-message {
+	font-size: 18px;
+}

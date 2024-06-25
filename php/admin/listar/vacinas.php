@@ -1,3 +1,7 @@
+<?php
+    pegarProximosAgendamentos($base_api_url);
+?>
+
 <div class="card">
     <div class="card-header">
         <h2>Vacinas</h2>

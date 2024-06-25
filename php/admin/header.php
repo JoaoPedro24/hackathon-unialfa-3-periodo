@@ -1,5 +1,5 @@
 <div id="wrapper">
-    <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #11114e" id="accordionSidebar">
+    <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #11114e; position: relative;" id="accordionSidebar">
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
             <img src="images/logo.png" class="w-100" alt="Vitrine">
         </a>
@@ -51,8 +51,18 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="listar/meu_cadastro">
-                <i class="fas fa-user"></i></i> Meu cadastro
+            <a class="nav-link" href="editar/cadastro_idoso">
+                <i class="fas fa-user"></i> Meu cadastro
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="editar/cadastro_responsavel">
+                <i class="fas fa-user"></i> Responsável
+            </a>
+        </li>
+        <li class="nav-item" style="position:absolute; bottom: 0;">
+            <a class="nav-link" href="paginas/entrar" style="color: #ff6961">
+                <i class="fas fa-fw fa-power-off" style="color: #ff6961"></i> Sair
             </a>
         </li>
     </ul>
