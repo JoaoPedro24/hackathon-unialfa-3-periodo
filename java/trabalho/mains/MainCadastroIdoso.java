@@ -1,16 +1,17 @@
 package trabalho.mains;
 
-import trabalho.view.AgendamentoForm;
+import trabalho.view.CadastroIdosoForm;
+import trabalho.view.CadastroResponsavelForm;
 
 import javax.swing.*;
 import java.sql.SQLException;
 
-public class MainAgendamento {
+public class MainCadastroIdoso {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            AgendamentoForm form = null;
+            CadastroIdosoForm form = null;
             try {
-                form = new AgendamentoForm();
+                form = new CadastroIdosoForm();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
