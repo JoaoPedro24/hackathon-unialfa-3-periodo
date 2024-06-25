@@ -30,6 +30,6 @@
     <form class="w-50" method="POST" action="">
         <input class="form-control" type="text" name="id_idoso" id="id_idoso" placeholder="Informe seu código" required>
         <button class="mt-2 mb-3 w-100 btn btn-primary" type="submit">Entrar</button>
-        <a href="">Cadastre-se</a>
+        <span class="register-button">Cadastre-se</span>
     </form>
 </div>

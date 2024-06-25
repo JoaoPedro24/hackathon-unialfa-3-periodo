@@ -1,7 +1,7 @@
 <?php
     $servidor = "localhost";
-    $usuario  = "pedro";
-    $senha    = "password";
+    $usuario  = "root";
+    $senha    = "";
     $banco    = "hackathon_3_periodo";
 
     

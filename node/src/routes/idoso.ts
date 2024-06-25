@@ -13,7 +13,10 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     const { id } = req.params
-    const idoso = await knex('idosos').where({ id }).first()
+    const idoso = await knex('idosos as i')
+    .join('responsaveis as r', 'r.id', 'i.id_responsavel')
+    .select('i.*', 'r.nome as nome_responsavel')
+    .where("i.id", id).first()
 
     res.json({ idoso })
 })
@@ -42,7 +45,7 @@ router.post('/', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     const registerBodySchema = z.object({
-        id_responsavel: z.number().int(),
+        id_responsavel: z.number().int().optional(),
         nome: z.string().optional(),
         cpf: z.string().optional(),
         telefone: z.string().optional(),

@@ -55,15 +55,15 @@
                 </div>
 
 
-                <div class="col-lg-12 col-md-12 col-sm-12 mb-3">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <label for="observacoes">Observações</label>
                     <textarea name="observacoes" id="observacoes" class="form-control" style="resize: none;"></textarea>
                 </div>
 
             </div>
 
-            <div class="form-buttons">
-                <button type="button" class="btn btn-outline-danger">
+            <div class="form-buttons mt-3">
+                <button type="button" class="btn btn-outline-danger" onclick="location.href='listar/agendamentos'">
                     <i class="fas fa-times"></i> Cancelar
                 </button>
                 <button type="submit" class="btn btn-success">
