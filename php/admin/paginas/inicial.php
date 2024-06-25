@@ -20,7 +20,7 @@
               <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="#agendamento"  style="color:white;">Agende sua vacina</a>
                 <a class="nav-link" href="#beneficios" style="color:white;">Beneficios da vacina</a>
-                <a class="nav-link" href="#efeitos" style="color:white;">Efeitos colaterais</a>
+                <a class="nav-link" href="#vacinas" style="color:white;">Efeitos colaterais</a>
               </div>
             </div>
           </div>
