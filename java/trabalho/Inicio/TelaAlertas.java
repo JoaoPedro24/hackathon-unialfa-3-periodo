@@ -1,6 +1,7 @@
 package trabalho.Inicio;
 
-import trabalho.dao.CadastroEnfermeiroDao;
+import com.formdev.flatlaf.FlatLightLaf;
+import trabalho.dao.AlertaDao;
 import trabalho.model.Alerta;
 
 import javax.swing.*;
@@ -8,6 +9,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,42 +19,48 @@ public class TelaAlertas extends JFrame {
     private DefaultTableModel tableModel;
 
     public TelaAlertas() {
+
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         setTitle("Alertas e Lembretes");
         setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         tableModel = new DefaultTableModel(new Object[]{"Nome", "CPF", "Telefone", "Data", "Vacina"}, 0);
         table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
         carregarDados();
+        setLocationRelativeTo(null);
     }
 
     private void carregarDados() {
+
         try {
-            CadastroEnfermeiroDao dao = new CadastroEnfermeiroDao();
+            AlertaDao dao = new AlertaDao();
             List<Alerta> alertas = dao.listarTodosAlertas();
             if (alertas.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Não há vacinas agendadas.", "Alerta", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                Calendar cal = Calendar.getInstance();
-                int anoAtual = cal.get(Calendar.YEAR);
-                int proximoAno = anoAtual + 1;
+                LocalDate hoje = LocalDate.now();
+                LocalDate proximoAno = hoje.plusYears(1);
 
-                SimpleDateFormat formataData = new SimpleDateFormat("dd/MM/yyyy");
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
                 for (Alerta alerta : alertas) {
-                    Calendar dataAlerta = Calendar.getInstance();
-                    dataAlerta.setTime(alerta.getData());
-                    int anoAlerta = dataAlerta.get(Calendar.YEAR);
+                    LocalDate dataAlerta = alerta.getData();
 
-                    if (anoAlerta == anoAtual || anoAlerta == proximoAno) {
+                    if (dataAlerta.isAfter(hoje.minusDays(1)) && dataAlerta.isBefore(proximoAno.plusDays(1))) {
                         tableModel.addRow(new Object[]{
-                                alerta.getNome(),
+                                alerta.getNomeIdoso(),
                                 alerta.getCpf(),
                                 alerta.getTelefone(),
-                                formataData.format(alerta.getData()),
-                                alerta.getVacina()
+                                dataAlerta.format(formatter),
+                                alerta.getNomeVacina()
                         });
                     }
                 }

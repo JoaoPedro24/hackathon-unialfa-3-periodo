@@ -12,11 +12,11 @@ public class VacinaService {
         try {
             var dao = new CadastroVacinaDao();
             if (cadastroVacina.getId() == null) {
-                dao.inserir(cadastroVacina);
-            }else {
-                dao.atualizar(cadastroVacina);
+                dao.inserirVacinas(cadastroVacina);
+            } else {
+                dao.atualizarVacinas(cadastroVacina);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -24,8 +24,8 @@ public class VacinaService {
     public void deletar(CadastroVacina cadastroVacina) {
         try {
             var dao = new CadastroVacinaDao();
-            dao.deletar(cadastroVacina.getId());
-        }catch (Exception e){
+            dao.deletarVacinas(cadastroVacina.getId());
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -33,15 +33,12 @@ public class VacinaService {
     public List<CadastroVacina> listarVacinas() {
         try {
             var dao = new CadastroVacinaDao();
-            return dao.listarTodos();
-        }catch (Exception e){
+            return dao.listarTodasVacinas();
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             return Collections.emptyList();
         }
     }
-
-
-
 
 
 }
