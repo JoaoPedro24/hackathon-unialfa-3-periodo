@@ -68,7 +68,7 @@
     </ul>
 
     <div>
-        <a class="btn" style="background-color:white; position: absolute; top: 70%;  box-shadow: 3px 3px 8px 10px gray">
+        <a class="btn" style="background-color:white; position: absolute; top: 70%; box-shadow: 5px 1px 3px 1px gray; border-radius: 25px">
             <i class="fas fa-universal-access fa-lg" style="color: green; font-size: 40px"></i>
         </a>
     </div>
