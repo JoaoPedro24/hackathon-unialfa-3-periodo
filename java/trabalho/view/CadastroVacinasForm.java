@@ -1,5 +1,6 @@
 package trabalho.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import trabalho.model.CadastroVacina;
 import trabalho.service.VacinaService;
 
@@ -10,7 +11,7 @@ import java.awt.*;
 
 import static java.lang.Integer.parseInt;
 
-public class CadastroVacinasForm  extends JFrame{
+public class CadastroVacinasForm extends JFrame {
     private VacinaService service;
 
     private JLabel labelId;
@@ -30,11 +31,17 @@ public class CadastroVacinasForm  extends JFrame{
     private JButton botaoExcluir;
     private JTable tabelaCadastro;
 
-    public CadastroVacinasForm(){
+    public CadastroVacinasForm() {
         service = new VacinaService();
 
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         setTitle("Cadastro De Vacinas");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 550);
 
         JPanel painelEntrada = new JPanel(new GridBagLayout());
@@ -62,7 +69,7 @@ public class CadastroVacinasForm  extends JFrame{
         constraints.gridy = 1;
         painelEntrada.add(campoNome, constraints);
 
-        labelPrazo = new JLabel("Prazo:");
+        labelPrazo = new JLabel("Prazo(meses):");
         constraints.gridx = 0;
         constraints.gridy = 2;
         painelEntrada.add(labelPrazo, constraints);
@@ -116,15 +123,15 @@ public class CadastroVacinasForm  extends JFrame{
         setLocationRelativeTo(null);
     }
 
+    private boolean soLetra(String string) {
+        return string.matches("[\\p{L}\\s]+");
+    }
+
     private void limparCampos() {
         campoId.setText("");
         campoNome.setText("");
         campoPrazo.setText("");
         campoIdadeMinima.setText("");
-    }
-
-    private boolean soLetra(String string) {
-        return string.matches("[a-zA-Z]+");
     }
 
     private void excluirDados() {
@@ -142,12 +149,13 @@ public class CadastroVacinasForm  extends JFrame{
             if (nome.isEmpty() || prazoTexto.isEmpty() || idadeMinimaTexto.isEmpty()) {
                 throw new IllegalArgumentException("Por favor, preencha todos os campos.");
             }
+            if (nome.isBlank() || prazoTexto.isBlank() || idadeMinimaTexto.isBlank()) {
+                throw new IllegalArgumentException("Apenas Espaços não são permitidos.");
+            }
             if (!soLetra(nome)) {
                 throw new IllegalArgumentException("Os campos devem conter apenas letras.");
             }
 
-            Integer prazo = Integer.valueOf(prazoTexto);
-            Integer idadeMinima = Integer.valueOf(idadeMinimaTexto);
 
             service.salvar(construirCadastro());
             limparCampos();
@@ -162,7 +170,7 @@ public class CadastroVacinasForm  extends JFrame{
 
     private CadastroVacina construirCadastro() {
         return campoId.getText().isEmpty()
-                ? new CadastroVacina(campoNome.getText(), parseInt(campoPrazo.getText()),parseInt(campoIdadeMinima.getText()))
+                ? new CadastroVacina(campoNome.getText(), parseInt(campoPrazo.getText()), parseInt(campoIdadeMinima.getText()))
                 : new CadastroVacina(
                 parseInt(campoId.getText()),
                 campoNome.getText(),
@@ -174,7 +182,7 @@ public class CadastroVacinasForm  extends JFrame{
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nome");
-        model.addColumn("Prazo");
+        model.addColumn("Prazo(meses)");
         model.addColumn("Idade Minima");
 
         service.listarVacinas().forEach(cadastroVacina ->
@@ -190,7 +198,6 @@ public class CadastroVacinasForm  extends JFrame{
 
     }
 
-
     private void selecionarVacinas(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tabelaCadastro.getSelectedRow();
@@ -203,19 +210,14 @@ public class CadastroVacinasForm  extends JFrame{
                 campoNome.setText(nome);
 
                 var prazo = (Integer) tabelaCadastro.getValueAt(selectedRow, 2);
-                campoPrazo.setText(id.toString());
+                campoPrazo.setText(prazo.toString());
 
                 var idadeMinima = (Integer) tabelaCadastro.getValueAt(selectedRow, 3);
-                campoIdadeMinima.setText(id.toString());
+                campoIdadeMinima.setText(idadeMinima.toString());
 
             }
         }
     }
-
-
-
-
-
 
 
 }

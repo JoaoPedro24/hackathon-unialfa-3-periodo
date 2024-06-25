@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CadastroVacinaDao {
-    private Connection connection;
+    public Connection connection;
 
     public CadastroVacinaDao() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/hackton2?useTimezone=true&serverTimezone=UTC", "root", "");
+                    "jdbc:mysql://localhost:3306/hackathon_3_periodo?useTimezone=true&serverTimezone=UTC", "root", "");
         } catch (Exception e) {
             throw new SQLException(e.getMessage());
         }
@@ -24,8 +24,8 @@ public class CadastroVacinaDao {
     }
 
 
-    public void inserir(CadastroVacina cadastroVacina) throws SQLException {
-        String sql = "insert into vacinas(nome, prazo, idade_minima values(?,?,?)";
+    public void inserirVacinas(CadastroVacina cadastroVacina) throws SQLException {
+        String sql = "insert into vacinas(nome, prazo, idade_minima) values(?,?,?)";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, cadastroVacina.getNome());
         ps.setInt(2, cadastroVacina.getPrazo());
@@ -33,7 +33,7 @@ public class CadastroVacinaDao {
         ps.execute();
     }
 
-    public List<CadastroVacina> listarTodos() throws SQLException {
+    public List<CadastroVacina> listarTodasVacinas() throws SQLException {
         List<CadastroVacina> cadastroVacinas = new ArrayList<>();
 
         ResultSet rs = connection.prepareStatement("select * from vacinas").executeQuery();
@@ -51,7 +51,7 @@ public class CadastroVacinaDao {
         return cadastroVacinas;
     }
 
-    public void atualizar(CadastroVacina cadastroVacina) throws SQLException {
+    public void atualizarVacinas(CadastroVacina cadastroVacina) throws SQLException {
         String sql = "update vacinas set nome = ?, prazo = ?, idade_minima = ? where id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setString(1, cadastroVacina.getNome());
@@ -61,7 +61,7 @@ public class CadastroVacinaDao {
         ps.execute();
     }
 
-    public void deletar(int id) throws SQLException {
+    public void deletarVacinas(int id) throws SQLException {
         String sql = "delete from vacinas where id = ?";
         PreparedStatement ps = connection.prepareStatement(sql);
         ps.setInt(1, id);
@@ -69,3 +69,4 @@ public class CadastroVacinaDao {
     }
 
 }
+

@@ -1,42 +1,48 @@
 package trabalho.view;
 
+import com.formdev.flatlaf.FlatLightLaf;
 import trabalho.model.CadastroEnfermeiro;
-import trabalho.service.CadastroService;
+import trabalho.service.CadastroEnfermeiroService;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 import java.awt.*;
-
-import static java.lang.Integer.parseInt;
+import java.text.ParseException;
 
 public class CadastroEnfermeiroForm extends JFrame {
 
-    private CadastroService service;
+    public CadastroEnfermeiroService service;
 
     private JLabel labelId;
-    private JTextField campoId;
+    public JTextField campoId;
 
     private JLabel labelNome;
-    private JTextField campoNome;
+    public JTextField campoNome;
 
     private JLabel labelTelefone;
-    private JTextField campoTelefone;
+    public JFormattedTextField campoTelefone;
 
     private JLabel labelCpf;
-    private JTextField campoCpf;
+    public JFormattedTextField campoCpf;
 
     private JButton botaoSalvar;
     private JButton botaoCancelar;
     private JButton botaoExcluir;
     private JTable tabelaCadastro;
 
+    public CadastroEnfermeiroForm() throws ParseException {
+        service = new CadastroEnfermeiroService();
 
-    public CadastroEnfermeiroForm() {
-        service = new CadastroService();
+        try {
+            UIManager.setLookAndFeel(new FlatLightLaf());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
 
-        setTitle("Tela de Cadastro");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Cadastrar Enfermeiros");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(500, 550);
 
         JPanel painelEntrada = new JPanel(new GridBagLayout());
@@ -69,7 +75,13 @@ public class CadastroEnfermeiroForm extends JFrame {
         constraints.gridy = 2;
         painelEntrada.add(labelTelefone, constraints);
 
-        campoTelefone = new JTextField(20);
+        try {
+            MaskFormatter telefoneFormatter = new MaskFormatter("(##) #####-####");
+            campoTelefone = new JFormattedTextField(telefoneFormatter);
+            campoTelefone.setColumns(20);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         constraints.gridx = 1;
         constraints.gridy = 2;
         painelEntrada.add(campoTelefone, constraints);
@@ -79,7 +91,13 @@ public class CadastroEnfermeiroForm extends JFrame {
         constraints.gridy = 3;
         painelEntrada.add(labelCpf, constraints);
 
-        campoCpf = new JTextField(20);
+        try {
+            MaskFormatter cpfFormatter = new MaskFormatter("###.###.###-##");
+            campoCpf = new JFormattedTextField(cpfFormatter);
+            campoCpf.setColumns(20);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         constraints.gridx = 1;
         constraints.gridy = 3;
         painelEntrada.add(campoCpf, constraints);
@@ -118,24 +136,38 @@ public class CadastroEnfermeiroForm extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void limparCampos() {
+    private boolean soLetra(String string) {
+        return string.matches("[\\p{L}\\s]+");
+    }
+
+    public void limparCampos() {
         campoId.setText("");
         campoNome.setText("");
         campoTelefone.setText("");
         campoCpf.setText("");
     }
 
-    private boolean soLetra(String string) {
-        return string.matches("[a-zA-Z]+");
-    }
-
-    private void excluirDados() {
+    public void excluirDados() {
         service.deletar(construirCadastro());
         limparCampos();
         tabelaCadastro.setModel(carregarDadosLocadoras());
     }
 
-    private void executarAcaoDoBotao() {
+    public void validarCPF() {
+        String cpf = campoCpf.getText().replaceAll("\\D", "");
+        if (!cpf.matches("\\d{11}")) {
+            throw new IllegalArgumentException("O CPF deve conter 11 dígitos numéricos.");
+        }
+    }
+
+    public void validarTelefone() {
+        String telefone = campoTelefone.getText().replaceAll("\\D", "");
+        if (!telefone.matches("\\d{11}")) {
+            throw new IllegalArgumentException("O telefone deve conter 11 dígitos numéricos.");
+        }
+    }
+
+    public void executarAcaoDoBotao() {
         try {
             String nome = campoNome.getText();
             String telefone = campoTelefone.getText();
@@ -144,17 +176,14 @@ public class CadastroEnfermeiroForm extends JFrame {
             if (nome.isEmpty() || telefone.isEmpty() || cpf.isEmpty()) {
                 throw new IllegalArgumentException("Por favor, preencha todos os campos.");
             }
-
-            if (!telefone.matches("\\d{11}")) {
-                throw new IllegalArgumentException("O telefone deve conter 11 dígitos numéricos no formato 44912345678.");
+            if (nome.isBlank() || telefone.isBlank() || cpf.isBlank()) {
+                throw new IllegalArgumentException("Espaços em Branco não são aceitaveis.");
             }
-            if (!cpf.matches("\\d{11}")) {
-                throw new IllegalArgumentException("O CPF deve conter 11 dígitos numéricos no formato 11122233344.");
-            }
-
             if (!soLetra(nome)) {
                 throw new IllegalArgumentException("Os campos devem conter apenas letras.");
             }
+            validarCPF();
+            validarTelefone();
 
             service.salvar(construirCadastro());
             limparCampos();
@@ -164,20 +193,19 @@ public class CadastroEnfermeiroForm extends JFrame {
         } catch (IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(CadastroEnfermeiroForm.this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     private CadastroEnfermeiro construirCadastro() {
         return campoId.getText().isEmpty()
-                ? new CadastroEnfermeiro(campoNome.getText(), campoTelefone.getText(),campoCpf.getText())
+                ? new CadastroEnfermeiro(campoNome.getText(), campoTelefone.getText(), campoCpf.getText())
                 : new CadastroEnfermeiro(
-                parseInt(campoId.getText()),
+                Integer.parseInt(campoId.getText()),
                 campoNome.getText(),
                 campoTelefone.getText(),
                 campoCpf.getText());
     }
 
-    private DefaultTableModel carregarDadosLocadoras() {
+    public DefaultTableModel carregarDadosLocadoras() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("ID");
         model.addColumn("Nome");
@@ -186,37 +214,31 @@ public class CadastroEnfermeiroForm extends JFrame {
 
         service.listarCadastro().forEach(cadastroEnfermeiro ->
                 model.addRow(new Object[]{
-                                cadastroEnfermeiro.getId(),
-                                cadastroEnfermeiro.getNome(),
-                                cadastroEnfermeiro.getTelefone(),
-                                cadastroEnfermeiro.getCpf()
-                        }
-                )
+                        cadastroEnfermeiro.getId(),
+                        cadastroEnfermeiro.getNome(),
+                        cadastroEnfermeiro.getTelefone(),
+                        cadastroEnfermeiro.getCpf()
+                })
         );
         return model;
-
     }
 
     private void selecionarCadastro(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {
             int selectedRow = tabelaCadastro.getSelectedRow();
             if (selectedRow != -1) {
+                int id = (int) tabelaCadastro.getValueAt(selectedRow, 0);
+                campoId.setText(String.valueOf(id));
 
-                var id = (Integer) tabelaCadastro.getValueAt(selectedRow, 0);
-                campoId.setText(id.toString());
-
-                var nome = (String) tabelaCadastro.getValueAt(selectedRow, 1);
+                String nome = (String) tabelaCadastro.getValueAt(selectedRow, 1);
                 campoNome.setText(nome);
 
-                var telefone = (String) tabelaCadastro.getValueAt(selectedRow, 2);
+                String telefone = (String) tabelaCadastro.getValueAt(selectedRow, 2);
                 campoTelefone.setText(telefone);
 
-                var cpf = (String) tabelaCadastro.getValueAt(selectedRow, 3);
-                campoCpf.setText(cpf);
-
+                String cpf = (String) tabelaCadastro.getValueAt(selectedRow, 3);
+                campoCpf.setText(cpf); // Define o valor formatado
             }
         }
     }
-
-
 }
