@@ -57,6 +57,12 @@
         </li>
     </ul>
 
+    <div>
+        <a class="btn" style="background-color:white; position: absolute; top: 70%;  box-shadow: 3px 3px 8px 10px gray">
+            <i class="fas fa-universal-access fa-lg" style="color: green; font-size: 40px"></i>
+        </a>
+    </div>
+
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content" style="margin-top: 24px;">
             <div class="container-fluid">
