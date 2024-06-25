@@ -1,6 +1,6 @@
 <div id="wrapper">
     <ul class="navbar-nav sidebar sidebar-dark accordion" style="background-color: #11114e; position: relative;" id="accordionSidebar">
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="paginas/inicial.php">
             <img src="images/logo.png" class="w-100" alt="Vitrine">
         </a>
 
@@ -33,7 +33,7 @@
         <hr class="sidebar-divider my-0">
 
         <li class="nav-item active">
-            <a class="nav-link" href="paginas/entrar">
+            <a class="nav-link" href="paginas/inicial.php">
                 <i class="fas fa-home"></i> Página inicial
             </a>
         </li>
